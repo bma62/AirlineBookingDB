@@ -51,7 +51,7 @@ CREATE TABLE FlightSchedule (
     departureWeekday VARCHAR(10) NOT NULL,
     departureTime TIME NOT NULL,
     arrivalWeekday VARCHAR(10) NOT NULL,
-    arrivalTime VARCHAR(10) NOT NULL,
+    arrivalTime TIME NOT NULL,
     seatPrice DECIMAL(10,2) NOT NULL,
     PRIMARY KEY (flightNo),
     FOREIGN KEY (departureAirportIATA) REFERENCES Airport (airportIATA),
