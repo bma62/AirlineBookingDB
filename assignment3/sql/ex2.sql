@@ -3,7 +3,7 @@ CREATE SCHEMA `airline-ticket-database` ;
 CREATE TABLE Client (
 	username VARCHAR(100) NOT NULL,
     password VARCHAR(100) NOT NULL,
-    points INT,
+    points INT NOT NULL DEFAULT 0,
     PRIMARY KEY (username)
     );
 
@@ -71,7 +71,7 @@ CREATE TABLE Flight (
     departureDate DATE NOT NULL,
     arrivalDate DATE NOT NULL,
     totalNumSeats SMALLINT NOT NULL,
-    numSeatsSold SMALLINT,
+    numSeatsSold SMALLINT NOT NULL DEFAULT 0,
     PRIMARY KEY (flightNo, departureDate),
     FOREIGN KEY (flightNo) REFERENCES FlightSchedule (flightNo)
     );
