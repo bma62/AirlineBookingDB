@@ -54,8 +54,8 @@ CREATE TABLE FlightSchedule (
     arrivalTime TIME NOT NULL,
     seatPrice DECIMAL(10,2) NOT NULL,
     PRIMARY KEY (flightNo),
-    FOREIGN KEY (departureAirportIATA) REFERENCES Airport (airportIATA),
-	FOREIGN KEY (arrivalAirportIATA) REFERENCES Airport (airportIATA),
+    FOREIGN KEY (departureAirportIATA) REFERENCES Route (airportIATA),
+	FOREIGN KEY (arrivalAirportIATA) REFERENCES Route (airportIATA),
     FOREIGN KEY (airlineIATA) REFERENCES Airline(airlineIATA)
 	);
 
