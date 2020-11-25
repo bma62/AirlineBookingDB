@@ -1,17 +1,23 @@
 #1
-# Select those clients who are in the booking list and rank them by their points
+#Select those clients who are in the booking list and find the sVIP members
 SELECT c.username, c.points
 FROM Client c, Booking b
 WHERE c.username = b.username
 GROUP BY c.username, c.points
+HAVING c.points > 80000
 ORDER BY c.points DESC;
 
+
 #2
-# find the flight schedule with seats currently available
-SELECT f.flightNo, fs.departureWeekday, fs.arrivalWeekday, fs.departureTime, fs.arrivalTime, (f.totalNumSeats - f.numSeatsSold) AS seatsAvailable
+# Given a departure place and specific departure date, find any qualified flight schedule with seats currently available
+SELECT f.flightNo, fs.departureAirportIATA, fs.arrivalAirportIATA, f.departureDate, f.arrivalDate, fs.departureTime, 
+fs.arrivalTime, (f.totalNumSeats - f.numSeatsSold) AS seatsAvailable, fs.seatPrice
 FROM FlightSchedule fs, Flight f 
-WHERE f.flightNo = fs.flightNo
-GROUP BY f.flightNo, fs.departureWeekday, fs.arrivalWeekday, fs.departureTime, fs.arrivalTime, f.numSeatsSold,seatsAvailable
+WHERE f.flightNo = fs.flightNo	
+		AND f.departureDate = '2020-05-03'
+        AND fs.departureAirportIATA = 'YYZ' AND fs.arrivalAirportIATA = 'MDT'
+GROUP BY f.flightNo, fs.departureAirportIATA, fs.arrivalAirportIATA, f.departureDate, f.arrivalDate, fs.departureTime, 
+fs.arrivalTime, f.numSeatsSold, seatsAvailable, fs.seatPrice
 ORDER By seatsAvailable ASC;
 
 #3
@@ -25,14 +31,14 @@ WHERE confirmationNo IN (SELECT confirmationNo
                                                 WHERE firstName= 'Libby' AND lastName='Gallagher'));
 											
 #4
-#Related passengers with clients, tell which passengers a client booked a ticket for
-SELECT c.username, b.confirmationNo, b.bookingStatus, t.ticketNo, p.firstName AS passengerFName, p.lastName AS passengerLName
+#Find the total number of passenger a client booked, and the total amount money they have paid
+SELECT c.username, SUM(b.transactionAmount) AS totalAmountPaid,  COUNT(p.travelDocument) AS numOfPassengerBooked
 FROM Passenger p, Client c, Booking b, Ticket t
 WHERE c.username = b.username
 		AND b.confirmationNo = t.confirmationNo
         AND t.travelDocument = p.travelDocument
-GROUP BY c.username, b.confirmationNo, b.bookingStatus, t.ticketNo, passengerFName, passengerLName
-ORDER BY c.username;
+GROUP BY c.username
+ORDER BY totalAmountPaid DESC;
 
 #5
 #Find the most popular booking route ( tickets sold most), and its ticket price for a user
@@ -44,17 +50,7 @@ ORDER BY numTicketSold DESC;
 
 
 #6
-#Rank the flight who takes the longest distance route between a time period
-SELECT DISTINCT fs.flightNo, r.distance , fs.departureAirportIATA, fs.arrivalAirportIATA, f.departureDate, f.arrivalDate
-FROM  Route r, FlightSchedule fs, Flight f
-WHERE r.departureAirportIATA = fs.departureAirportIATA
-		AND r.arrivalAirportIATA = fs.arrivalAirportIATA
-        AND fs.flightNo = f.flightNo
-        AND f.departureDate >= '2020-05-03' AND f.departureDate <= '2020-05-06'
-GROUP BY fs.flightNo, fs.departureAirportIATA, fs.arrivalAirportIATA, f.departureDate, f.arrivalDate
-ORDER BY  r.distance DESC;
-
-#another possible solution to 6
+#Select a list of flights as long as its schedule, who takes the longest distance route between a time period
 SELECT fs.*, r.distance
 FROM FlightSchedule fs, Route r
 WHERE EXISTS (
@@ -75,6 +71,8 @@ WHERE EXISTS (
 				AND departureDate <= '2020-05-06')
 				AND fs.departureAirportIATA = r.departureAirportIATA
 				AND fs.arrivalAirportIATA = r.arrivalAirportIATA);
+
+
 
                                                 
 			
