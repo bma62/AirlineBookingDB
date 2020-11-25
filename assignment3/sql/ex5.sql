@@ -1,5 +1,5 @@
 #1
-#Select those clients who are in the booking list and find the sVIP members
+#Select those clients who are in the booking list and find the sVIP members (who has points over 80000)
 SELECT c.username, c.points
 FROM Client c, Booking b
 WHERE c.username = b.username
@@ -50,7 +50,7 @@ ORDER BY numTicketSold DESC;
 
 
 #6
-#Select a list of flights as long as its schedule, who takes the longest distance route between a time period
+#Select a list of flights as well as its flight schedule, who takes the longest distance route between a time period
 SELECT fs.*, r.distance
 FROM FlightSchedule fs, Route r
 WHERE EXISTS (
