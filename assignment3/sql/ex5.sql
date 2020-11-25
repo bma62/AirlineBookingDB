@@ -54,6 +54,27 @@ WHERE r.departureAirportIATA = fs.departureAirportIATA
 GROUP BY fs.flightNo, fs.departureAirportIATA, fs.arrivalAirportIATA, f.departureDate, f.arrivalDate
 ORDER BY  r.distance DESC;
 
+#another possible solution to 6
+SELECT fs.*, r.distance
+FROM FlightSchedule fs, Route r
+WHERE EXISTS (
+		SELECT DISTINCT flightNo
+		FROM Flight
+		WHERE departureDate >= '2020-05-03' 
+			AND departureDate <= '2020-05-06'
+			AND fs.flightNo = Flight.flightNo)
+    AND fs.departureAirportIATA = r.departureAirportIATA
+    AND fs.arrivalAirportIATA = r.arrivalAirportIATA
+    AND r.distance = (
+		SELECT MAX(r.distance)
+		FROM FlightSchedule fs, Route r
+		WHERE flightNo IN (
+			SELECT DISTINCT flightNo
+			FROM Flight 
+			WHERE departureDate >= '2020-05-03' 
+				AND departureDate <= '2020-05-06')
+				AND fs.departureAirportIATA = r.departureAirportIATA
+				AND fs.arrivalAirportIATA = r.arrivalAirportIATA);
 
                                                 
 			
