@@ -34,7 +34,6 @@ SELECT * FROM Client;
 # Modifying seat price for a selected date, using "case" to manage different conditions
 # Meaning: increase the seat price when it's close to soldout
 # decrease the seat price when the selling rate is low
-# DELETE FROM FlightSchedule
 
 UPDATE FlightSchedule
 SET seatPrice = CASE
