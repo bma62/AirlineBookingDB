@@ -6,7 +6,8 @@ AS SELECT *
    WHERE username = 'ana83';
 
 # Test for response
-SELECT * FROM personalhistory;
+SELECT * FROM personalhistory
+ORDER BY transactionDate;
 
 # Create View #2
 # Create a boarding information view for a given pair: confirmation number, ticket number on ticket
@@ -25,8 +26,8 @@ SELECT * FROM boardinginfomation;
 # this function here selects a specific date for test
 # For the future, when we are able to get up-to-date data
 # this function can be used with CURDATE() to get flights in the next 15 days
-CREATE VIEW `FlightForDate` (flightNo, departureDate, arrivalDate, seatNumLeft) AS
-SELECT flightNo, departureDate, arrivalDate, (totalNumSeats - numSeatsSold)
+CREATE VIEW `FlightForDate` (flightNo, departureDate, arrivalDate, totalNumSeats, numSeatsSold) AS
+SELECT flightNo, departureDate, arrivalDate, totalNumSeats, numSeatsSold
 FROM Flight
 WHERE departureDate >= '2020-11-01'
       AND departureDate <= '2020-11-15'

@@ -17,9 +17,11 @@ VALUES ('10002',
 # Test for results
 SELECT * FROM Booking;
 
+
 # Interesting Data Modification Command: #2
 # Updating a set of tuples
 # Meaning: giving bonus points to clients who spent over 40000 dollars on travelling during summer months
+SET SQL_SAFE_UPDATES = 0;
 UPDATE Client
 SET points = points + 500
 WHERE (username IN (SELECT username
