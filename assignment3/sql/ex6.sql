@@ -14,6 +14,8 @@ VALUES ('10002',
              WHERE (flightNo = '0P82'))),
 		'ana83');
 
+# Test for results
+SELECT * FROM Booking;
 
 # Interesting Data Modification Command: #2
 # Updating a set of tuples
