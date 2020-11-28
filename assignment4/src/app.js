@@ -3,11 +3,14 @@ const express = require('express');
 const bodyParser = require('body-parser');
 const mysql = require('mysql');
 const path = require('path');
+const session = require('express-session');
+const cookieParser = require('cookie-parser');
 
 const app = express();
 
 const port = 5000;
-// const {getHomePage} = require('./routes/index');
+const {getHomePage, loginPage,
+  registerPage, login, register, logout} = require('./routes/index');
 // const {addPlayerPage, addPlayer, deletePlayer, editPlayer, editPlayerPage} = require('./routes/player');
 
 // Create connection
@@ -23,7 +26,7 @@ db.connect((err) => {
   if(err){
     throw err;
   }
-  console.log('MySQL Connected...');
+  console.log('MySQL connected!');
 });
 
 //make sure db can be used globally
@@ -37,13 +40,41 @@ app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json()); //parse from data client
 app.use(express.static(path.join(__dirname, 'public')));
 
+// initialize cookie-parser to allow us access the cookies stored in the browser.
+app.use(cookieParser());
+// initialize express-session to allow us track the logged-in user across sessions.
+app.use(session({
+  key: 'user_sid',
+  secret: 'secret',
+  resave: false,
+  saveUninitialized: false,
+  cookie: {
+    expires: 600000
+  }
+}));
+// middleware function to check for logged-in users
+function checkSignIn(req, res, next){
+  if(req.session.user){
+    next();     //If session exists, proceed to page
+  } else {
+    res.redirect('/login') //else, redirect to login
+  }
+}
+
 //connect routes and views
-// app.get('/', getHomePage); //comment missing
+app.get('/', checkSignIn, getHomePage); //comment missing
+app.get('/login', loginPage);
+app.get('/logout', logout);
+app.get('/register', registerPage);
+app.post('/register', register);
+app.post('/login', login);
+
 // app.get('/add', addPlayerPage); //comment missing
 // app.get('/edit/:id', editPlayerPage); //comment missing
 // app.get('/delete/:id', deletePlayer); //comment missing
 // app.post('/add', addPlayer); //comment missing
 // app.post('/edit/:id', editPlayer); //comment missing
+
 
 
 // set the app to listen on the port
