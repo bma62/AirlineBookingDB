@@ -1,6 +1,6 @@
 5 alternatives for the user:
 
-- Sign up a new account —alternative 1 (DONE)
+- Sign up a new account —alternative 1 (DONE). 
   -(log in to check)                   (DONE)
 - View booking => show empty records
 - Search for a destination, arrival city, date  —alternative 2
