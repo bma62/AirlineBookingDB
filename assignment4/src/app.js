@@ -11,7 +11,7 @@ const app = express();
 const port = 5000;
 const {getHomePage, loginPage,
   registerPage, login, register, logout} = require('./routes/index');
-// const {addPlayerPage, addPlayer, deletePlayer, editPlayer, editPlayerPage} = require('./routes/player');
+const {viewProfilePage} = require('./routes/view-profile');
 
 // Create connection
 const db = mysql.createConnection({
@@ -62,10 +62,11 @@ function checkSignIn(req, res, next){
 }
 
 //connect routes and views
-app.get('/', checkSignIn, getHomePage); //comment missing
+app.get('/', checkSignIn, getHomePage); //if user signed in, get home page
 app.get('/login', loginPage);
 app.get('/logout', logout);
 app.get('/register', registerPage);
+app.get('/profile', checkSignIn, viewProfilePage);
 app.post('/register', register);
 app.post('/login', login);
 
