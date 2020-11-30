@@ -12,6 +12,8 @@ const port = 5000;
 const {getHomePage, loginPage,
   registerPage, login, register, logout} = require('./routes/index');
 const {viewProfilePage} = require('./routes/view-profile');
+const {viewBookingPage} = require('./routes/view-booking');
+
 
 // Create connection
 const db = mysql.createConnection({
@@ -67,6 +69,7 @@ app.get('/login', loginPage);
 app.get('/logout', logout);
 app.get('/register', registerPage);
 app.get('/profile', checkSignIn, viewProfilePage);
+app.get('/booking', checkSignIn, viewBookingPage);
 app.post('/register', register);
 app.post('/login', login);
 
