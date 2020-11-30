@@ -38,7 +38,7 @@ app.set('views', __dirname + '/views'); //set views folder for rendering
 app.set('view engine', 'ejs'); //use ejs as template editor
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json()); //parse from data client
-app.use(express.static(path.join(__dirname, 'public')));
+app.use(express.static(path.join(__dirname, 'public'))); //configure to use public folder
 
 // initialize cookie-parser to allow us access the cookies stored in the browser.
 app.use(cookieParser());
