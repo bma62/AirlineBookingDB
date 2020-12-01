@@ -24,6 +24,7 @@
       <change beforePath="$PROJECT_DIR$/app.js" beforeDir="false" afterPath="$PROJECT_DIR$/app.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/routes/book-flight.js" beforeDir="false" afterPath="$PROJECT_DIR$/routes/book-flight.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/views/book-arrival.ejs" beforeDir="false" afterPath="$PROJECT_DIR$/views/book-arrival.ejs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/views/book-date.ejs" beforeDir="false" afterPath="$PROJECT_DIR$/views/book-date.ejs" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/views/book-departure.ejs" beforeDir="false" afterPath="$PROJECT_DIR$/views/book-departure.ejs" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/views/view-booking.ejs" beforeDir="false" afterPath="$PROJECT_DIR$/views/view-booking.ejs" afterDir="false" />
     </list>
@@ -83,7 +84,7 @@
       <option name="presentableId" value="Default" />
       <updated>1606535016353</updated>
       <workItem from="1606535017608" duration="128000" />
-      <workItem from="1606535159621" duration="36104000" />
+      <workItem from="1606535159621" duration="38091000" />
     </task>
     <servers />
   </component>

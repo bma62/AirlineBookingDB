@@ -92,6 +92,17 @@ module.exports = {
         )
     },
 
+    bookArrival: (req, res) =>
+    {
+        //get the airport IATA of the selected value in the datalist
+        arrival = req.body.arrival.substr(0, req.body.arrival.indexOf(','));
+        res.redirect('/date');
+    },
+
+    bookDatePage: (req, res) =>
+    {
+        res.render('book-date.ejs', {departure:departure, arrival:arrival})
+    },
     bookFlight: (req, res) =>
     {
 

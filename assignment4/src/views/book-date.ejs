@@ -12,9 +12,17 @@
 <form action="/date" method="POST">
     <!--    form elements below-->
     <div>
+        <label for="departure">Departure: <%=departure%> </label>
+    </div>
+    <div>
+        <label for="arrival">Arrival: <%=arrival%> </label>
+    </div>
+    <div>
         <label for="travelDate">Travel date</label>
+        <input type="date" id="travelDate" name="travelDate"
+               min="2020-01-01" max="2020-11-24" required>
     </div>
     <button type="submit">Next</button>
 </form>
-
+<a href="/arrival" class="btn btn-info" role="button">Back</a>
 </body>

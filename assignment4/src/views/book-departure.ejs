@@ -14,7 +14,7 @@
     <div>
         <label for="departure">Departure</label>
         <!--        a data list element containing departure airports-->
-        <input type="text" id = "departure" name="departure" list="departureList">
+        <input type="text" id = "departure" name="departure" list="departureList" required>
         <datalist id="departureList">
             <% for (var i=0; i<departureAirports.length; i++) { %>
             <option>
