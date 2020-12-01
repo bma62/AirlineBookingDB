@@ -5,6 +5,7 @@ const mysql = require('mysql');
 const path = require('path');
 const session = require('express-session');
 const cookieParser = require('cookie-parser');
+var $ = require( "jquery" ); // so we can use jQuery functions
 
 const app = express();
 
@@ -14,7 +15,8 @@ const {getHomePage, loginPage,
 const {viewProfilePage} = require('./routes/view-profile');
 const {viewBookingPage} = require('./routes/view-booking');
 const {bookDeparturePage, bookDeparture,
-  bookArrivalPage, bookArrival, bookDatePage} = require('./routes/book-flight');
+  bookArrivalPage, bookArrival, bookDatePage, bookDate,
+  searchFlightPage} = require('./routes/book-flight');
 
 // Create connection
 const db = mysql.createConnection({
@@ -74,11 +76,13 @@ app.get('/booking', checkSignIn, viewBookingPage);
 app.get('/departure', checkSignIn, bookDeparturePage);
 app.get('/arrival', checkSignIn, bookArrivalPage);
 app.get('/date', checkSignIn, bookDatePage);
+app.get('/search', checkSignIn, searchFlightPage);
 
 app.post('/register', register);
 app.post('/login', login);
 app.post('/departure', bookDeparture)
 app.post('/arrival', bookArrival)
+app.post('/date', bookDate)
 
 // app.get('/add', addPlayerPage); //comment missing
 // app.get('/edit/:id', editPlayerPage); //comment missing

@@ -9,6 +9,9 @@
     <%- include('partials/header'); %>
 </header>
 
+<!--include to use jQuery-->
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
+
 <form action="/date" method="POST">
     <!--    form elements below-->
     <div>
@@ -21,8 +24,35 @@
         <label for="travelDate">Travel date</label>
         <input type="date" id="travelDate" name="travelDate"
                min="2020-01-01" max="2020-11-24" required>
+        <input type="checkbox" id="isFlexible" name="isFlexible" rel="isFlexible">
+        <label for="isFlexible">I am flexible within </label>
+        <select name = "flexDays" id = "flexDays" disabled="disabled">
+            <option selected disabled>choose days</option>
+            <option>1 day</option>
+            <option>2 days</option>
+            <option>3 days</option>
+            <option>4 days</option>
+            <option>5 days</option>
+            <option>6 days</option>
+            <option>7 days</option>
+        </select>
+<!--        this button will submit as well, but redirect to deal page -->
+        <button type="submit" id="dealButton" formaction="/deal" disabled>Find best deal</button>
     </div>
     <button type="submit">Next</button>
 </form>
 <a href="/arrival" class="btn btn-info" role="button">Back</a>
+<script>
+    // enable the flex days drop down if is flexible box checked
+    $(function(){
+        $("[rel=isFlexible]").click(function(){
+            $("#flexDays").attr("disabled", false);
+        });
+    });
+
+    //after flex days is selected, enable find deal button
+    $('#flexDays').one('change', function() {
+        $('#dealButton').prop('disabled', false);
+    });
+</script>
 </body>

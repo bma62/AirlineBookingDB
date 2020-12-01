@@ -1,7 +1,8 @@
 //variables storing user inputs during flight booking
 var departure;
 var arrival;
-var travlelDate;
+var travelDate;
+var flexDays;
 
 module.exports = {
     bookDeparturePage: (req, res) =>
@@ -103,6 +104,72 @@ module.exports = {
     {
         res.render('book-date.ejs', {departure:departure, arrival:arrival})
     },
+
+    bookDate: (req, res) =>
+    {
+        travelDate = req.body.travelDate;
+        res.redirect('/search');
+    },
+
+    searchFlightPage: (req, res) =>
+    {
+        //query available flights nad order by departure time
+        let query =
+            "SELECT a.airlineName, f.flightNo, fs.departureAirportIATA, fs.arrivalAirportIATA, " +
+            "   f.departureDate, fs.departureTime, f.arrivalDate, fs.arrivalTime, " +
+            "   (f.totalNumSeats - f.numSeatsSold) AS seatsAvailable, fs.seatPrice " +
+            "FROM FlightSchedule fs, Flight f, Airline a " +
+            "WHERE f.flightNo = fs.flightNo " +
+                "AND f.departureDate = '"+travelDate+"' " +
+                "AND fs.departureAirportIATA = '"+departure+"' " +
+                "AND fs.arrivalAirportIATA = '"+arrival+"' " +
+                "AND fs.airlineIATA = a.airlineIATA " +
+            "ORDER BY departureTime ASC;";
+
+        db.query
+        (query, (err, result) =>
+            {
+                if (err)
+                {
+                    return res.status(500).send(err);
+                }
+                else
+                {
+                    //render page and pass in query results
+                    res.render
+                    ('search-flight.ejs',
+                        {
+                            departure: departure,
+                            arrival: arrival,
+                            travelDate: travelDate,
+                            flights: result
+                        });
+                }
+            }
+        )
+    },
+
+    searchSeatPage: (req, res) =>
+    {
+        let flightNo = req.params.flightNo;
+        let query =
+            "SELECT a.airlineName, s.flightNo, s.departureDate, fs.departureTime, s.seatNo, s.seatStatus, fs.seatPrice " +
+            "FROM Seat s, FlightSchedule fs, Airline a " +
+            "WHERE s.flightNo = '"+flightNo+"' " +
+                "AND s.flightNo = fs.flightNo " +
+                "AND fs.airlineIATA = a.airlineIATA " +
+                "AND s.departureDate = '"+departure+"' " +
+                "AND s.seatStatus = 'Available' " +
+            "ORDER BY s.seatNo;"
+    },
+
+    findDealPage: (req, res) =>
+    {
+        //get form elements from the request
+        travelDate = req.body.travelDate;
+        flexDays = req.body.flexDays[0];
+    },
+
     bookFlight: (req, res) =>
     {
 
