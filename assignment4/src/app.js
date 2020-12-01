@@ -13,7 +13,7 @@ const {getHomePage, loginPage,
   registerPage, login, register, logout} = require('./routes/index');
 const {viewProfilePage} = require('./routes/view-profile');
 const {viewBookingPage} = require('./routes/view-booking');
-
+const {bookDeparturePage, bookDeparture} = require('./routes/book-flight');
 
 // Create connection
 const db = mysql.createConnection({
@@ -70,8 +70,11 @@ app.get('/logout', logout);
 app.get('/register', registerPage);
 app.get('/profile', checkSignIn, viewProfilePage);
 app.get('/booking', checkSignIn, viewBookingPage);
+app.get('/departure', checkSignIn, bookDeparturePage);
+
 app.post('/register', register);
 app.post('/login', login);
+app.post('/departure', bookDeparture)
 
 // app.get('/add', addPlayerPage); //comment missing
 // app.get('/edit/:id', editPlayerPage); //comment missing

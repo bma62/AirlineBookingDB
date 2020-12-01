@@ -1,0 +1,29 @@
+<!--include the templates-->
+<head>
+    <%- include('partials/head'); %>
+</head>
+
+<body class="container">
+
+<header>
+    <%- include('partials/header'); %>
+</header>
+
+<form action="/departure" method="POST">
+    <!--    form elements below-->
+    <div>
+        <label for="departure">Departure</label>
+        <!--        a data list element containing departure airports-->
+        <input type="text" name="departure" list="departureList">
+        <datalist id="departureList">
+            <% for (var i=0; i<departureAirports.length; i++) { %>
+            <option><%=departureAirports[i].airportIATA + ", " +
+                        departureAirports[i].city + ", " +
+                        departureAirports[i].country%></option>
+            <% } %>
+        </datalist>
+    </div>
+    <button type="submit">Next</button>
+</form>
+
+</body>
