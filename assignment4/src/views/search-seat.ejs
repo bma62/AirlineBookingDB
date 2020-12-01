@@ -28,8 +28,6 @@
             <tr>
                 <th style="text-align: center; vertical-align: middle;" scope="col">Airline</th>
                 <th style="text-align: center; vertical-align: middle;" scope="col">Flight No</th>
-                <th style="text-align: center; vertical-align: middle;" scope="col">Departure</th>
-                <th style="text-align: center; vertical-align: middle;" scope="col">Arrival</th>
                 <th style="text-align: center; vertical-align: middle;" scope="col">Departure Date</th>
                 <th style="text-align: center; vertical-align: middle;" scope="col">Departure Time</th>
                 <th style="text-align: center; vertical-align: middle;" scope="col">Seat No</th>
@@ -41,15 +39,16 @@
             <tbody>
             <% for (var i = 0; i< seats.length; i++) { %>
                 <tr>
-                    <td style="text-align: center; vertical-align: middle;"><%= seat.airlineName %></td>
-                    <td style="text-align: center; vertical-align: middle;"><%= seat.flightNo %></td>
-                    <td style="text-align: center; vertical-align: middle;"><%= seat.departureDate.toISOString().split('T')[0] %></td>
-                    <td style="text-align: center; vertical-align: middle;"><%= seat.departureTime %></td>
-                    <td style="text-align: center; vertical-align: middle;"><%= seat.seatNo %></td>
-                    <td style="text-align: center; vertical-align: middle;"><%= seat.seatStatus %></td>
-                    <td style="text-align: center; vertical-align: middle;"><%= seat.seatPrice %></td>
-                    <td>
-                        <input type="checkbox" name="seat"+index id="seat"+index
+                    <td style="text-align: center; vertical-align: middle;"><%= seats[i].airlineName %></td>
+                    <td style="text-align: center; vertical-align: middle;"><%= seats[i].flightNo %></td>
+                    <td style="text-align: center; vertical-align: middle;"><%= seats[i].departureDate.toISOString().split('T')[0] %></td>
+                    <td style="text-align: center; vertical-align: middle;"><%= seats[i].departureTime %></td>
+                    <td style="text-align: center; vertical-align: middle;"><%= seats[i].seatNo %></td>
+                    <td style="text-align: center; vertical-align: middle;"><%= seats[i].seatStatus %></td>
+                    <td style="text-align: center; vertical-align: middle;"><%= seats[i].seatPrice %></td>
+                    <td style="text-align: center; vertical-align: middle;">
+<!--                        use this checkbox to select multiple seats-->
+                        <input type="checkbox" name="seat-row" value = i >
                     </td>
                 </tr>
             <% } %>
@@ -61,5 +60,5 @@
 </div>
 
 <a href="/date" class="btn btn-info" role="button">Back</a>
-
+<!--need a next button here and ask travel document, fName, lName for each seat-->
 </body>

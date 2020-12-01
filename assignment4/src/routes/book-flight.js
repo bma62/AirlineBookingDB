@@ -151,6 +151,7 @@ module.exports = {
 
     searchSeatPage: (req, res) =>
     {
+        //get available seats on that flight
         let flightNo = req.params.flightNo;
         let query =
             "SELECT a.airlineName, s.flightNo, s.departureDate, fs.departureTime, s.seatNo, s.seatStatus, fs.seatPrice " +
@@ -158,9 +159,31 @@ module.exports = {
             "WHERE s.flightNo = '"+flightNo+"' " +
                 "AND s.flightNo = fs.flightNo " +
                 "AND fs.airlineIATA = a.airlineIATA " +
-                "AND s.departureDate = '"+departure+"' " +
+                "AND s.departureDate = '"+travelDate+"' " +
                 "AND s.seatStatus = 'Available' " +
             "ORDER BY s.seatNo;"
+
+        db.query
+        (query, (err, result) =>
+            {
+                if (err)
+                {
+                    return res.status(500).send(err);
+                }
+                else
+                {
+                    //render page and pass in query results
+                    res.render
+                    ('search-seat.ejs',
+                        {
+                            departure: departure,
+                            arrival: arrival,
+                            travelDate: travelDate,
+                            seats: result
+                        });
+                }
+            }
+        )
     },
 
     findDealPage: (req, res) =>

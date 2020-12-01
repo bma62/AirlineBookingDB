@@ -16,7 +16,7 @@ const {viewProfilePage} = require('./routes/view-profile');
 const {viewBookingPage} = require('./routes/view-booking');
 const {bookDeparturePage, bookDeparture,
   bookArrivalPage, bookArrival, bookDatePage, bookDate,
-  searchFlightPage} = require('./routes/book-flight');
+  searchFlightPage, searchSeatPage} = require('./routes/book-flight');
 
 // Create connection
 const db = mysql.createConnection({
@@ -77,6 +77,8 @@ app.get('/departure', checkSignIn, bookDeparturePage);
 app.get('/arrival', checkSignIn, bookArrivalPage);
 app.get('/date', checkSignIn, bookDatePage);
 app.get('/search', checkSignIn, searchFlightPage);
+app.get('/flight/:flightNo', checkSignIn, searchSeatPage);
+
 
 app.post('/register', register);
 app.post('/login', login);
