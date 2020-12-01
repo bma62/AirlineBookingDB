@@ -13,25 +13,49 @@
     <!--    form elements below-->
     <div>
         <label for="departure">Departure: <%=departure%> </label>
-        <!--        a data list element containing departure airports-->
+    </div>
+
+    <div>
+        <label for="arrival">Arrival</label>
+        <!--        a data list element containing arrival airports-->
         <input type="text" name="arrival" list="arrivalList">
         <datalist id="arrivalList">
             <% for (var i=0; i<arrivalAirports.length; i++) { %>
-            <option><%=arrivalAirports[i].arrivalAirports + ", " +
+            <option><%=arrivalAirports[i].airportIATA + ", " +
                 arrivalAirports[i].city + ", " +
                 arrivalAirports[i].country%></option>
             <% } %>
         </datalist>
-        <button type="button" onclick="alert('Show top 5 destinations.')">
-            Show me top destinations
-        </button>
     </div>
 
+<!--    display top 5 destination from the departure city-->
     <div>
-        <label for="travelDate">Travel date</label>
-        <!--        <input type="password" id="password" name="password" required>-->
+        <label for="topDestinations">Top 5 Destinations from <%=departure%> in the past 30 days: </label>
     </div>
+
+    <div class="table-wrapper">
+        <table class="table table-hovered">
+            <thead class="thead-dark">
+            <tr>
+                <th scope="col">City</th>
+                <th scope="col">Country</th>
+                <th scope="col">Tickets Sold</th>
+                <th scope="col">Average Price</th>
+            </tr>
+            </thead>
+            <tbody>
+            <% for (var i=0; i<5; i++) { %>
+                <tr>
+                    <td style="text-align: center; vertical-align: middle;"><%= topDestinations[i].city %></td>
+                    <td style="text-align: center; vertical-align: middle;"><%= topDestinations[i].country %></td>
+                    <td style="text-align: center; vertical-align: middle;"><%= topDestinations[i].ticketsSold %></td>
+                    <td style="text-align: center; vertical-align: middle;"><%= topDestinations[i].avgPrice %></td>
+                </tr>
+            <% } %>
+            </tbody>
+        </table>
+
     <button type="submit">Next</button>
 </form>
-
+<a href="/departure" class="btn btn-info" role="button">Back</a>
 </body>
