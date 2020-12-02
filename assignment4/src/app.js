@@ -5,30 +5,30 @@ const mysql = require('mysql');
 const path = require('path');
 const session = require('express-session');
 const cookieParser = require('cookie-parser');
-var $ = require( "jquery" ); // so we can use jQuery functions
+var $ = require("jquery"); // so we can use jQuery functions
 
 const app = express();
 
 const port = 5000;
-const {getHomePage, loginPage,
-  registerPage, login, register, logout} = require('./routes/index');
-const {viewProfilePage} = require('./routes/view-profile');
-const {viewBookingPage} = require('./routes/view-booking');
-const {bookDeparturePage, bookDeparture,
+const { getHomePage, loginPage,
+  registerPage, login, register, logout } = require('./routes/index');
+const { viewProfilePage } = require('./routes/view-profile');
+const { viewBookingPage } = require('./routes/view-booking');
+const { bookDeparturePage, bookDeparture,
   bookArrivalPage, bookArrival, bookDatePage, bookDate,
-  searchFlightPage, searchSeatPage} = require('./routes/book-flight');
+  searchFlightPage, searchSeatPage, bookFlight } = require('./routes/book-flight');
 
 // Create connection
 const db = mysql.createConnection({
-  host     : 'localhost',
-  user     : 'root',
-  password : 'root',
-  database : 'airline-ticket-database'
+  host: 'localhost',
+  user: 'root',
+  password: 'root',
+  database: 'airline-ticket-database'
 });
 
 // Connect to database
 db.connect((err) => {
-  if(err){
+  if (err) {
     throw err;
   }
   console.log('MySQL connected!');
@@ -58,8 +58,8 @@ app.use(session({
   }
 }));
 // middleware function to check for logged-in users
-function checkSignIn(req, res, next){
-  if(req.session.user){
+function checkSignIn(req, res, next) {
+  if (req.session.user) {
     next();     //If session exists, proceed to page
   } else {
     res.redirect('/login') //else, redirect to login
@@ -80,11 +80,13 @@ app.get('/search', checkSignIn, searchFlightPage);
 app.get('/flight/:flightNo', checkSignIn, searchSeatPage);
 
 
+
 app.post('/register', register);
 app.post('/login', login);
 app.post('/departure', bookDeparture)
 app.post('/arrival', bookArrival)
 app.post('/date', bookDate)
+app.post('bookFlight', checkSignIn, bookFlight);
 
 // app.get('/add', addPlayerPage); //comment missing
 // app.get('/edit/:id', editPlayerPage); //comment missing
