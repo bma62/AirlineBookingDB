@@ -1,64 +1,76 @@
 <!--include the templates-->
+
 <head>
     <%- include('partials/head'); %>
 </head>
 
 <body class="container">
 
-<header>
-    <%- include('partials/header'); %>
-</header>
+    <header>
+        <%- include('partials/header'); %>
+    </header>
 
-<!--    form elements below-->
-<div>
-    <label for="departure">Departure: <%=departure%> </label>
-</div>
-<div>
-    <label for="arrival">Arrival: <%=arrival%> </label>
-</div>
-<div>
-    <label for="travelDate">Travel date: <%=travelDate%> </label>
-</div>
+    <!--    form elements below-->
+    <div>
+        <label for="departure">Departure: <%=departure%> </label>
+    </div>
+    <div>
+        <label for="arrival">Arrival: <%=arrival%> </label>
+    </div>
+    <div>
+        <label for="travelDate">Travel date: <%=travelDate%> </label>
+    </div>
 
-<!--get query results of suitable flights  -->
-<div class="table-wrapper">
-    <% if (seats.length > 0) {%>
-        <table class="table table-hovered">
-            <thead class="thead-dark">
-            <tr>
-                <th style="text-align: center; vertical-align: middle;" scope="col">Airline</th>
-                <th style="text-align: center; vertical-align: middle;" scope="col">Flight No</th>
-                <th style="text-align: center; vertical-align: middle;" scope="col">Departure Date</th>
-                <th style="text-align: center; vertical-align: middle;" scope="col">Departure Time</th>
-                <th style="text-align: center; vertical-align: middle;" scope="col">Seat No</th>
-                <th style="text-align: center; vertical-align: middle;" scope="col">Status</th>
-                <th style="text-align: center; vertical-align: middle;" scope="col">Price</th>
-                <th style="text-align: center; vertical-align: middle;" scope="col">Select</th>
-            </tr>
-            </thead>
-            <tbody>
-            <% for (var i = 0; i< seats.length; i++) { %>
-                <tr>
-                    <td style="text-align: center; vertical-align: middle;"><%= seats[i].airlineName %></td>
-                    <td style="text-align: center; vertical-align: middle;"><%= seats[i].flightNo %></td>
-                    <td style="text-align: center; vertical-align: middle;"><%= seats[i].departureDate.toISOString().split('T')[0] %></td>
-                    <td style="text-align: center; vertical-align: middle;"><%= seats[i].departureTime %></td>
-                    <td style="text-align: center; vertical-align: middle;"><%= seats[i].seatNo %></td>
-                    <td style="text-align: center; vertical-align: middle;"><%= seats[i].seatStatus %></td>
-                    <td style="text-align: center; vertical-align: middle;"><%= seats[i].seatPrice %></td>
-                    <td style="text-align: center; vertical-align: middle;">
-<!--                        use this checkbox to select multiple seats-->
-                        <input type="checkbox" name="seat-row" value = i >
-                    </td>
-                </tr>
-            <% } %>
-            </tbody>
-        </table>
-    <% } else { %>
-    <p class="text-center">All seats sold out.</p>
-    <% } %>
-</div>
+    <!--get query results of suitable flights  -->
+    <div class="table-wrapper">
+        <% if (seats.length > 0) {%>
+        <form method="post" action="/bookFlight">
+            <table class="table table-hovered">
+                <thead class="thead-dark">
+                    <tr>
+                        <th style="text-align: center; vertical-align: middle;" scope="col">Airline</th>
+                        <th style="text-align: center; vertical-align: middle;" scope="col">Flight No</th>
+                        <th style="text-align: center; vertical-align: middle;" scope="col">Departure Date</th>
+                        <th style="text-align: center; vertical-align: middle;" scope="col">Departure Time</th>
+                        <th style="text-align: center; vertical-align: middle;" scope="col">Seat No</th>
+                        <th style="text-align: center; vertical-align: middle;" scope="col">Status</th>
+                        <th style="text-align: center; vertical-align: middle;" scope="col">Price</th>
+                        <th style="text-align: center; vertical-align: middle;" scope="col">Select</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <% for (var i = 0; i< seats.length; i++) { %>
+                    <tr>
+                        <td style="text-align: center; vertical-align: middle;"><%= seats[i].airlineName %></td>
+                        <td style="text-align: center; vertical-align: middle;"><%= seats[i].flightNo %></td>
+                        <td style="text-align: center; vertical-align: middle;">
+                            <%= seats[i].departureDate.toISOString().split('T')[0] %></td>
+                        <td style="text-align: center; vertical-align: middle;"><%= seats[i].departureTime %></td>
+                        <td style="text-align: center; vertical-align: middle;"><%= seats[i].seatNo %></td>
+                        <td style="text-align: center; vertical-align: middle;"><%= seats[i].seatStatus %></td>
+                        <td style="text-align: center; vertical-align: middle;"><%= seats[i].seatPrice %></td>
+                        <td style="text-align: center; vertical-align: middle;">
+                            <!--                        use this checkbox to select multiple seats-->
+                            <input type="checkbox" name="seat-row" value='<%= seats[i] %>'>
 
-<a href="/date" class="btn btn-info" role="button">Back</a>
-<!--need a next button here and ask travel document, fName, lName for each seat-->
+                        </td>
+                    </tr>
+                    <% } %>
+                </tbody>
+                <a href='/bookFlightPage' type="submit" class="btn btn-info" role="button"
+                    style="margin-right: 70px;">Book
+                    Seats</a>
+            </table>
+
+
+        </form>
+
+        <% } else { %>
+        <p class="text-center">All seats sold out.</p>
+        <% } %>
+    </div>
+
+    <a href="/date" class="btn btn-info" role="button">Back</a>
+
+    <!--need a next button here and ask travel document, fName, lName for each seat-->
 </body>

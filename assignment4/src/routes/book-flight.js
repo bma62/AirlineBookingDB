@@ -168,14 +168,17 @@ module.exports = {
         travelDate = req.body.travelDate;
         flexDays = req.body.flexDays[0];
     },
+    bookFlightPage: (req, res) => {
+        res.render('bookFlightPage.ejs')
+    },
 
     bookFlight: (req, res) => {
         let fName = req.body.fName;
         let lName = req.body.lName;
-        let doc = req.body.doc;
+        let passengerId = req.body.passengerId;
         let numSeatsBooked = req.body.numSeatsBooked;
 
-        let query = "INSERT INTO Booking (bookingStatus, numSeatsBooked, numPointsEarned,transactionDate, transactionAmount, username)" +
+        let query1 = "INSERT INTO Booking (bookingStatus, numSeatsBooked, numPointsEarned,transactionDate, transactionAmount, username)" +
             "VALUES (" +
             "        'Booked'," +
             "      ''" + numSeatsBooked + "'', " +
@@ -188,7 +191,49 @@ module.exports = {
             "      WHERE (flightNo = '" + flightNo + "'))), " +
             "    '" + req.session.user + "'); "
             db.query
-            (query, (err, result) => {
+            (query1, (err, result) => {
+                if (err) {
+                    return res.status(500).send(err);
+                }
+                else {
+                    //render page and pass in query results
+                    res.render
+                        (
+                            
+
+                        );
+                }
+            }
+            )
+
+        let query2 = "INSERT INTO Passenger " + 
+            "VALUES ( "+
+                "'" + passengerId + "'" +
+                "'" + fName + "'" +
+                "'" + lName + "' );" 
+                db.query
+                (query2, (err, result) => {
+                    if (err) {
+                        return res.status(500).send(err);
+                    }
+                    else {
+                        //render page and pass in query results
+                        res.render
+                            (
+                                
+    
+                            );
+                    }
+                }
+                )
+        let query3 = "UPDATE Client"+
+            "SET points = points + "+
+            "(2 * (SELECT seatPrice " +
+            "      FROM FlightSchedule " +
+            "     WHERE (flightNo = '" + flightNo + "')) * 0.1)"+
+            "WHERE username =  '" + req.session.user + "' "
+            db.query
+            (query3, (err, result) => {
                 if (err) {
                     return res.status(500).send(err);
                 }
