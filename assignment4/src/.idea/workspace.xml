@@ -23,7 +23,8 @@
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/app.js" beforeDir="false" afterPath="$PROJECT_DIR$/app.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/routes/book-flight.js" beforeDir="false" afterPath="$PROJECT_DIR$/routes/book-flight.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/views/seach-seat.ejs" beforeDir="false" afterPath="$PROJECT_DIR$/views/search-seat.ejs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/views/bookFlightPage.ejs" beforeDir="false" afterPath="$PROJECT_DIR$/views/passenger-info.ejs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/views/search-seat.ejs" beforeDir="false" afterPath="$PROJECT_DIR$/views/search-seat.ejs" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -81,7 +82,9 @@
       <option name="presentableId" value="Default" />
       <updated>1606535016353</updated>
       <workItem from="1606535017608" duration="128000" />
-      <workItem from="1606535159621" duration="47054000" />
+      <workItem from="1606535159621" duration="47145000" />
+      <workItem from="1606861273536" duration="1355000" />
+      <workItem from="1607005100034" duration="11253000" />
     </task>
     <servers />
   </component>
@@ -129,5 +132,9 @@
       <screen x="0" y="25" width="1920" height="972" />
     </state>
     <state x="281" y="428" key="com.intellij.openapi.vcs.update.UpdateOrStatusOptionsDialogupdate-v2/0.25.1920.972@0.25.1920.972" timestamp="1606599565810" />
+    <state x="804" y="288" key="refactoring.ChangeSignatureDialog" timestamp="1607005516885">
+      <screen x="0" y="25" width="1920" height="970" />
+    </state>
+    <state x="804" y="288" key="refactoring.ChangeSignatureDialog/-1194.271.1194.809/0.25.1920.970@0.25.1920.970" timestamp="1607005516885" />
   </component>
 </project>

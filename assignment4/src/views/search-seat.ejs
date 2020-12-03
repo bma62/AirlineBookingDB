@@ -24,8 +24,8 @@
     <!--get query results of suitable flights  -->
     <div class="table-wrapper">
         <% if (seats.length > 0) {%>
-        <form method="post" action="/bookFlight">
-            <table class="table table-hovered">
+        <form action="/passenger" method="POST" name="seatsForm" id="seatsForm">
+            <table class="table table-hovered" id="seatsTable">
                 <thead class="thead-dark">
                     <tr>
                         <th style="text-align: center; vertical-align: middle;" scope="col">Airline</th>
@@ -49,20 +49,14 @@
                         <td style="text-align: center; vertical-align: middle;"><%= seats[i].seatNo %></td>
                         <td style="text-align: center; vertical-align: middle;"><%= seats[i].seatStatus %></td>
                         <td style="text-align: center; vertical-align: middle;"><%= seats[i].seatPrice %></td>
-                        <td style="text-align: center; vertical-align: middle;">
-                            <!--                        use this checkbox to select multiple seats-->
-                            <input type="checkbox" name="seat-row" value='<%= seats[i] %>'>
-
+                        <td>
+                            <a href="/passenger/<%= seats[i].seatNo %>&<%= seats[i].seatPrice %>"
+                               target="_blank" rel="noopener" class="btn btn-sm btn-success">Book</a>
                         </td>
                     </tr>
                     <% } %>
                 </tbody>
-                <a href='/bookFlightPage' type="submit" class="btn btn-info" role="button"
-                    style="margin-right: 70px;">Book
-                    Seats</a>
             </table>
-
-
         </form>
 
         <% } else { %>
@@ -71,6 +65,4 @@
     </div>
 
     <a href="/date" class="btn btn-info" role="button">Back</a>
-
-    <!--need a next button here and ask travel document, fName, lName for each seat-->
 </body>

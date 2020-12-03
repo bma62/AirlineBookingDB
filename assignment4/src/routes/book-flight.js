@@ -3,6 +3,9 @@ var departure;
 var arrival;
 var travelDate;
 var flexDays;
+var flightNo;
+var seatNo;
+var seatPrice;
 
 module.exports = {
     bookDeparturePage: (req, res) => {
@@ -13,16 +16,15 @@ module.exports = {
             "WHERE f.flightNo = fs.flightNo " +
             "AND fs.departureAirportIATA = a.airportIATA;";
         db.query
-            (query, (err, result) => {
+        (query, (err, result) => {
                 if (err) {
                     return res.status(500).send(err);
-                }
-                else {
+                } else {
                     //render page and pass in query results
-                    res.render('book-departure.ejs', { departureAirports: result });
+                    res.render('book-departure.ejs', {departureAirports: result});
                 }
             }
-            )
+        )
     },
 
     bookDeparture: (req, res) => {
@@ -40,16 +42,15 @@ module.exports = {
             "WHERE fs.departureAirportIATA = '" + departure + "' " +
             "AND fs.arrivalAirportIATA = a.airportIATA;"
         db.query
-            (query, (err, result) => {
+        (query, (err, result) => {
                 if (err) {
                     return res.status(500).send(err);
-                }
-                else {
+                } else {
                     arrivalAirports = result;
                     //render page and pass in query results
                 }
             }
-            )
+        )
 
         //get arrival airports that sold most tickets from the departure airport in the past 30 days
         query =
@@ -63,22 +64,21 @@ module.exports = {
             "GROUP BY fs.arrivalAirportIATA, a.city, a.country " +
             "ORDER BY SUM(numSeatsSold) DESC;";
         db.query
-            (query, (err, result) => {
+        (query, (err, result) => {
                 if (err) {
                     return res.status(500).send(err);
-                }
-                else {
+                } else {
                     //render page and pass in query results
                     res.render
-                        ('book-arrival.ejs',
-                            {
-                                departure: departure,
-                                arrivalAirports: arrivalAirports,
-                                topDestinations: result
-                            });
+                    ('book-arrival.ejs',
+                        {
+                            departure: departure,
+                            arrivalAirports: arrivalAirports,
+                            topDestinations: result
+                        });
                 }
             }
-            )
+        )
     },
 
     bookArrival: (req, res) => {
@@ -88,7 +88,7 @@ module.exports = {
     },
 
     bookDatePage: (req, res) => {
-        res.render('book-date.ejs', { departure: departure, arrival: arrival })
+        res.render('book-date.ejs', {departure: departure, arrival: arrival})
     },
 
     bookDate: (req, res) => {
@@ -111,28 +111,27 @@ module.exports = {
             "ORDER BY departureTime ASC;";
 
         db.query
-            (query, (err, result) => {
+        (query, (err, result) => {
                 if (err) {
                     return res.status(500).send(err);
-                }
-                else {
+                } else {
                     //render page and pass in query results
                     res.render
-                        ('search-flight.ejs',
-                            {
-                                departure: departure,
-                                arrival: arrival,
-                                travelDate: travelDate,
-                                flights: result
-                            });
+                    ('search-flight.ejs',
+                        {
+                            departure: departure,
+                            arrival: arrival,
+                            travelDate: travelDate,
+                            flights: result
+                        });
                 }
             }
-            )
+        )
     },
 
     searchSeatPage: (req, res) => {
         //get available seats on that flight
-        let flightNo = req.params.flightNo;
+        flightNo = req.params.flightNo;
         let query =
             "SELECT a.airlineName, s.flightNo, s.departureDate, fs.departureTime, s.seatNo, s.seatStatus, fs.seatPrice " +
             "FROM Seat s, FlightSchedule fs, Airline a " +
@@ -144,109 +143,127 @@ module.exports = {
             "ORDER BY s.seatNo;"
 
         db.query
-            (query, (err, result) => {
+        (query, (err, result) => {
                 if (err) {
                     return res.status(500).send(err);
-                }
-                else {
+                } else {
                     //render page and pass in query results
                     res.render
-                        ('search-seat.ejs',
-                            {
-                                departure: departure,
-                                arrival: arrival,
-                                travelDate: travelDate,
-                                seats: result
-                            });
+                    ('search-seat.ejs',
+                        {
+                            departure: departure,
+                            arrival: arrival,
+                            travelDate: travelDate,
+                            seats: result
+                        });
                 }
             }
-            )
+        )
     },
 
+    //TODO : finish find deal
     findDealPage: (req, res) => {
         //get form elements from the request
         travelDate = req.body.travelDate;
         flexDays = req.body.flexDays[0];
     },
-    bookFlightPage: (req, res) => {
-        res.render('bookFlightPage.ejs')
+
+    passengerInfoPage: (req, res) => {
+        seatNo = req.params.seatNo;
+        seatPrice = req.params.seatPrice;
+        res.render('passenger-info.ejs',
+            {
+                departure: departure,
+                arrival: arrival,
+                travelDate: travelDate,
+                flightNo: flightNo, seatNo: seatNo, price: seatPrice
+            })
     },
 
-    bookFlight: (req, res) => {
+    passengerInfo: (req, res) => {
         let fName = req.body.fName;
         let lName = req.body.lName;
-        let passengerId = req.body.passengerId;
-        let numSeatsBooked = req.body.numSeatsBooked;
+        let travelDocument = req.body.travelDocument;
+        let points = Math.round(seatPrice * 0.1);
+        let username = req.session.user;
+        //insert this new booking into the db
+        var query =
+            "INSERT INTO Booking (bookingStatus, numSeatsBooked, numPointsEarned, transactionDate, transactionAmount, username) " +
+            "VALUES ('Booked', 1, " + points + ", curdate(), " + seatPrice + ", '"+username+"');";
 
-        let query1 = "INSERT INTO Booking (bookingStatus, numSeatsBooked, numPointsEarned,transactionDate, transactionAmount, username)" +
-            "VALUES (" +
-            "        'Booked'," +
-            "      ''" + numSeatsBooked + "'', " +
-            "   (2 * (SELECT seatPrice " +
-            "      FROM FlightSchedule " +
-            "     WHERE (flightNo = '" + flightNo + "')) * 0.1), " +
-            "  CURDATE(), " +
-            "  (2 * (SELECT seatPrice " +
-            "     FROM FlightSchedule " +
-            "      WHERE (flightNo = '" + flightNo + "'))), " +
-            "    '" + req.session.user + "'); "
-            db.query
-            (query1, (err, result) => {
-                if (err) {
-                    return res.status(500).send(err);
-                }
-                else {
-                    //render page and pass in query results
-                    res.render
-                        (
-                            
+        db.query(query, (err, result) => {
+            if (err) return res.status(500).send(err);
+        });
 
-                        );
-                }
+        //also, insert this passenger's info into db
+        query =
+            "INSERT INTO Passenger " +
+            "VALUES ('" + travelDocument + "', " +
+            "'" + fName + "', " +
+            "'" + lName + "');";
+
+        db.query
+        (query, (err, result) => {
+            if (err) {
+                // error here simply means this passenger has booked with us before and it already in db
+                // so just ignore
             }
-            )
+        });
 
-        let query2 = "INSERT INTO Passenger " + 
-            "VALUES ( "+
-                "'" + passengerId + "'" +
-                "'" + fName + "'" +
-                "'" + lName + "' );" 
-                db.query
-                (query2, (err, result) => {
-                    if (err) {
-                        return res.status(500).send(err);
-                    }
-                    else {
-                        //render page and pass in query results
-                        res.render
-                            (
-                                
-    
-                            );
-                    }
-                }
-                )
-        let query3 = "UPDATE Client"+
-            "SET points = points + "+
-            "(2 * (SELECT seatPrice " +
-            "      FROM FlightSchedule " +
-            "     WHERE (flightNo = '" + flightNo + "')) * 0.1)"+
-            "WHERE username =  '" + req.session.user + "' "
-            db.query
-            (query3, (err, result) => {
-                if (err) {
-                    return res.status(500).send(err);
-                }
-                else {
-                    //render page and pass in query results
-                    res.render
-                        (
-                            
+        //update the client's points earned from this booking
+        query =
+            "UPDATE Client " +
+            "SET points = points + " + points + " "
+        "WHERE username = '"+username+"';";
 
-                        );
-                }
-            }
-            )
-        
+        db.query(query, (err, result) => {
+            if (err) return res.status(500).send(err);
+        });
+
+        //increment 1 to num seats sold for that flight
+        query =
+            "UPDATE Flight " +
+            "SET numSeatsSold = numSeatsSold + 1 " +
+            "WHERE flightNo = '" + flightNo + "' " +
+            "AND departureDate = '" + travelDate + "';";
+
+        db.query(query, (err, result) => {
+            if (err) return res.status(500).send(err);
+        });
+
+        //update the status for the sold seat
+        query =
+            "UPDATE Seat " +
+            "SET seatStatus = 'Sold' " +
+            "WHERE flightNo = '" + flightNo + "' " +
+            "AND seatNo = '" + seatNo + "' " +
+            "AND departureDate = '" + travelDate + "';"
+        db.query(query, (err, result) => {
+            if (err) return res.status(500).send(err);
+        })
+
+        // get the confirmationNo we just inserted for the new booking
+        var confirmationNo;
+        query =
+            "SELECT MAX(confirmationNo) AS cn " +
+            "FROM Booking " +
+            "WHERE transactionDate = curdate() " +
+            "AND username = '"+username+"';";
+
+        db.query
+        (query, (err, result) => {
+            if (err) return res.status(500).send(err);
+            confirmationNo = result[0].cn;
+
+            //lastly, insert a new ticket into db
+            query =
+                "INSERT INTO Ticket (confirmationNo, travelDocument, seatNo, flightNo, departureDate) " +
+                "VALUES (" + confirmationNo + ", '" + travelDocument + "', '" + seatNo + "', '" + flightNo + "', '" + travelDate + "');";
+            db.query(query, (err, result) => {
+                if (err) return res.status(500).send(err);
+                //all operations done, redirect to home page
+                res.redirect('/');
+            });
+        });
     }
 }
