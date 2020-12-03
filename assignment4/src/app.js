@@ -15,7 +15,7 @@ const { getHomePage, loginPage,
 const { viewProfilePage } = require('./routes/view-profile');
 const { viewBookingPage, cancelBooking } = require('./routes/view-booking');
 const { bookDeparturePage, bookDeparture,
-  bookArrivalPage, bookArrival, bookDatePage, bookDate,
+  bookArrivalPage, bookArrival, bookDatePage, bookDate, findDealPage,
   searchFlightPage, searchSeatPage, passengerInfoPage, passengerInfo} = require('./routes/book-flight');
 
 // Create connection
@@ -76,6 +76,7 @@ app.get('/booking', checkSignIn, viewBookingPage);
 app.get('/departure', checkSignIn, bookDeparturePage);
 app.get('/arrival', checkSignIn, bookArrivalPage);
 app.get('/date', checkSignIn, bookDatePage);
+app.get('/deal', checkSignIn, findDealPage);
 app.get('/search', checkSignIn, searchFlightPage);
 app.get('/flight/:flightNo', checkSignIn, searchSeatPage);
 app.get('/passenger/:seatNo&:seatPrice', checkSignIn, passengerInfoPage);
@@ -87,6 +88,7 @@ app.post('/departure', bookDeparture)
 app.post('/arrival', bookArrival)
 app.post('/date', bookDate)
 app.post('/passenger', passengerInfo)
+app.post('/deal', checkSignIn, findDealPage);
 
 // set the app to listen on the port
 app.listen(port, () => {

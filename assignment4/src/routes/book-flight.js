@@ -161,11 +161,63 @@ module.exports = {
         )
     },
 
-    //TODO : finish find deal
     findDealPage: (req, res) => {
         //get form elements from the request
         travelDate = req.body.travelDate;
         flexDays = req.body.flexDays[0];
+
+        //get the range of flexible dates
+        var date = new Date(travelDate);
+
+        date.setDate(date.getDate()-flexDays);
+        let flexStart = date.toISOString().split('T')[0];
+
+        date.setDate(date.getDate()+flexDays*2);
+        let flexEnd = date.toISOString().split('T')[0];
+
+        //get minimum seat price on the original travel date
+        var query =
+            "SELECT MIN(fs.seatPrice) AS minPrice " +
+            "FROM FlightSchedule fs, Flight f, Airline a " +
+            "WHERE f.flightNo = fs.flightNo " +
+                "AND f.departureDate = '" + travelDate + "' " +
+                "AND fs.departureAirportIATA = '" + departure + "' " +
+                "AND fs.arrivalAirportIATA = '" + arrival + "' " +
+                "AND fs.airlineIATA = a.airlineIATA;";
+
+        db.query
+        (query, (err, result) => {
+            if (err) {
+                return res.status(500).send(err);
+            }
+            let minPrice = result[0].minPrice;
+
+            // try to query any flights between the date range and has a lower price than original date
+            query =
+                "SELECT a.airlineName, f.flightNo, fs.departureAirportIATA, fs.arrivalAirportIATA, " +
+                    "f.departureDate, fs.departureTime, f.arrivalDate, fs.arrivalTime, " +
+                    "(f.totalNumSeats - f.numSeatsSold) AS seatsAvailable, fs.seatPrice " +
+                "FROM FlightSchedule fs, Flight f, Airline a " +
+                "WHERE f.flightNo = fs.flightNo " +
+                    "AND (f.departureDate BETWEEN '"+flexStart+"' AND '"+flexEnd+"') " +
+                    "AND fs.departureAirportIATA = '" + departure + "' " +
+                    "AND fs.arrivalAirportIATA = '" + arrival + "' " +
+                    "AND fs.airlineIATA = a.airlineIATA " +
+                    "AND fs.seatPrice < "+minPrice+" " +
+                "ORDER BY fs.seatPrice;";
+            db.query
+            (query, (err, result) => {
+                if (err) {
+                    return res.status(500).send(err);
+                }
+                res.render('search-flight.ejs', {
+                    departure: departure,
+                    arrival: arrival,
+                    travelDate: (flexStart +" to " +flexEnd),
+                    flights: result
+                })
+            })
+        })
     },
 
     passengerInfoPage: (req, res) => {
