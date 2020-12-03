@@ -214,7 +214,7 @@ module.exports = {
         query =
             "UPDATE Client " +
             "SET points = points + " + points + " "
-        "WHERE username = '"+username+"';";
+            "WHERE username = '"+username+"';";
 
         db.query(query, (err, result) => {
             if (err) return res.status(500).send(err);

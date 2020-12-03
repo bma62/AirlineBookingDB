@@ -13,7 +13,7 @@ const port = 5000;
 const { getHomePage, loginPage,
   registerPage, login, register, logout } = require('./routes/index');
 const { viewProfilePage } = require('./routes/view-profile');
-const { viewBookingPage } = require('./routes/view-booking');
+const { viewBookingPage, cancelBooking } = require('./routes/view-booking');
 const { bookDeparturePage, bookDeparture,
   bookArrivalPage, bookArrival, bookDatePage, bookDate,
   searchFlightPage, searchSeatPage, passengerInfoPage, passengerInfo} = require('./routes/book-flight');
@@ -79,7 +79,7 @@ app.get('/date', checkSignIn, bookDatePage);
 app.get('/search', checkSignIn, searchFlightPage);
 app.get('/flight/:flightNo', checkSignIn, searchSeatPage);
 app.get('/passenger/:seatNo&:seatPrice', checkSignIn, passengerInfoPage);
-
+app.get('/cancel/:confirmationNo', checkSignIn, cancelBooking);
 
 app.post('/register', register);
 app.post('/login', login);

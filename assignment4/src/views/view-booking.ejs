@@ -20,6 +20,7 @@
                 <th style="text-align: center; vertical-align: middle;" scope="col">Points Earned</th>
                 <th style="text-align: center; vertical-align: middle;" scope="col">Transaction Date</th>
                 <th style="text-align: center; vertical-align: middle;" scope="col">Transaction Amount</th>
+                <th style="text-align: center; vertical-align: middle;" scope="col">Action</th>
             </tr>
             </thead>
             <tbody>
@@ -33,6 +34,12 @@
                     <td style="text-align: center; vertical-align: middle;">
                         <%= booking.transactionDate.toISOString().split('T')[0] %></td>
                     <td style="text-align: center; vertical-align: middle;"><%= booking.transactionAmount %></td>
+                    <td>
+                        <% if (booking.bookingStatus === 'Booked'){%>
+                        <a href="/cancel/<%= booking.confirmationNo %>"
+                           target="_blank" rel="noopener" class="btn btn-sm btn-danger">Cancel</a>
+                        <%}%>
+                    </td>
                 </tr>
             <% }) %>
             </tbody>
