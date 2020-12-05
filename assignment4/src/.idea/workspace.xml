@@ -19,11 +19,7 @@
     <select />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="6e5330d1-4202-491f-ab7f-8ad571dae2e6" name="Default Changelist" comment="">
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app.js" beforeDir="false" afterPath="$PROJECT_DIR$/app.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/routes/book-flight.js" beforeDir="false" afterPath="$PROJECT_DIR$/routes/book-flight.js" afterDir="false" />
-    </list>
+    <list default="true" id="6e5330d1-4202-491f-ab7f-8ad571dae2e6" name="Default Changelist" comment="" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -82,7 +78,7 @@
       <workItem from="1606535017608" duration="128000" />
       <workItem from="1606535159621" duration="47145000" />
       <workItem from="1606861273536" duration="1355000" />
-      <workItem from="1607005100034" duration="16877000" />
+      <workItem from="1607005100034" duration="17135000" />
     </task>
     <servers />
   </component>
