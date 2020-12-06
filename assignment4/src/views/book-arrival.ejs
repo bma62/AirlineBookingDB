@@ -44,6 +44,7 @@
             </tr>
             </thead>
             <tbody>
+<!--            loop for 5 times to get top 5-->
             <% for (var i=0; i<5; i++) { %>
                 <tr>
                     <td style="text-align: center; vertical-align: middle;"><%= topDestinations[i].city %></td>
@@ -54,8 +55,10 @@
             <% } %>
             </tbody>
         </table>
-
-    <button type="submit">Next</button>
+    </div>
+<!--    two buttons for back and next each left and right aligned in the container -->
+    <a href="/departure" class="btn btn-info" role="button" style="float: left;">Back</a>
+    <button type="submit" class="btn btn-primary" style="float: right;">Next</button>
 </form>
-<a href="/departure" class="btn btn-info" role="button">Back</a>
+
 </body>

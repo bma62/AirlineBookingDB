@@ -23,6 +23,7 @@
 
     <!--get query results of suitable flights  -->
     <div class="table-wrapper">
+<!--        check if there are any available seats-->
         <% if (seats.length > 0) {%>
         <form action="/passenger" method="POST" name="seatsForm" id="seatsForm">
             <table class="table table-hovered" id="seatsTable">
@@ -39,6 +40,7 @@
                     </tr>
                 </thead>
                 <tbody>
+<!--                loop to show all available seats on the selected flight-->
                     <% for (var i = 0; i< seats.length; i++) { %>
                     <tr>
                         <td style="text-align: center; vertical-align: middle;"><%= seats[i].airlineName %></td>
@@ -49,9 +51,9 @@
                         <td style="text-align: center; vertical-align: middle;"><%= seats[i].seatNo %></td>
                         <td style="text-align: center; vertical-align: middle;"><%= seats[i].seatStatus %></td>
                         <td style="text-align: center; vertical-align: middle;"><%= seats[i].seatPrice %></td>
-                        <td>
+                        <td style="text-align: center; vertical-align: middle;">
                             <a href="/passenger/<%= seats[i].seatNo %>&<%= seats[i].seatPrice %>"
-                               target="_blank" rel="noopener" class="btn btn-sm btn-success">Book</a>
+                               class="btn btn-sm btn-success">Book</a>
                         </td>
                     </tr>
                     <% } %>
@@ -59,6 +61,7 @@
             </table>
         </form>
 
+<!--        if not, let the user know-->
         <% } else { %>
         <p class="text-center">All seats sold out.</p>
         <% } %>

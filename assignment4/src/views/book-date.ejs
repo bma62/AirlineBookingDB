@@ -22,10 +22,13 @@
     </div>
     <div>
         <label for="travelDate">Travel date</label>
+<!--        the date box, because we only have 2020 data in our database, limit min and max dates-->
         <input type="date" id="travelDate" name="travelDate"
                min="2020-01-01" max="2020-11-24" required>
+<!--        checkbox for if the client has flexible travel dates-->
         <input type="checkbox" id="isFlexible" name="isFlexible" rel="isFlexible">
         <label for="isFlexible">I am flexible within </label>
+<!--        a dropdown box lets user choose how many days he is flexible within-->
         <select name = "flexDays" id = "flexDays" disabled="disabled">
             <option selected disabled>choose days</option>
             <option>1 day</option>
@@ -36,12 +39,14 @@
             <option>6 days</option>
             <option>7 days</option>
         </select>
-<!--        this button will submit as well, but redirect to deal page -->
-        <button type="submit" id="dealButton" formaction="/deal" disabled>Find best deal</button>
+<!--        this button will submit the form as well, but redirect to find deal page -->
+        <button type="submit" class="btn btn-primary" id="dealButton" formaction="/deal" disabled>Find best deal</button>
     </div>
-    <button type="submit">Next</button>
+    <a href="/arrival" class="btn btn-info" role="button" style="float: left;">Back</a>
+    <button type="submit" class="btn btn-primary" style="float: right;">Next</button>
 </form>
-<a href="/arrival" class="btn btn-info" role="button">Back</a>
+
+<!--jQuery scripts below-->
 <script>
     // enable the flex days drop down if is flexible box checked
     $(function(){
@@ -50,7 +55,7 @@
         });
     });
 
-    //after flex days is selected, enable find deal button
+    //after flex days is selected, enable find deal button to be clicked
     $('#flexDays').one('change', function() {
         $('#dealButton').prop('disabled', false);
     });

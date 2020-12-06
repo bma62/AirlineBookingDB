@@ -19,7 +19,26 @@
     <select />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="6e5330d1-4202-491f-ab7f-8ad571dae2e6" name="Default Changelist" comment="" />
+    <list default="true" id="6e5330d1-4202-491f-ab7f-8ad571dae2e6" name="Default Changelist" comment="">
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app.js" beforeDir="false" afterPath="$PROJECT_DIR$/app.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/routes/book-flight.js" beforeDir="false" afterPath="$PROJECT_DIR$/routes/book-flight.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/routes/index.js" beforeDir="false" afterPath="$PROJECT_DIR$/routes/index.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/routes/view-booking.js" beforeDir="false" afterPath="$PROJECT_DIR$/routes/view-booking.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/routes/view-profile.js" beforeDir="false" afterPath="$PROJECT_DIR$/routes/view-profile.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/views/book-arrival.ejs" beforeDir="false" afterPath="$PROJECT_DIR$/views/book-arrival.ejs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/views/book-date.ejs" beforeDir="false" afterPath="$PROJECT_DIR$/views/book-date.ejs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/views/book-departure.ejs" beforeDir="false" afterPath="$PROJECT_DIR$/views/book-departure.ejs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/views/index.ejs" beforeDir="false" afterPath="$PROJECT_DIR$/views/index.ejs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/views/login.ejs" beforeDir="false" afterPath="$PROJECT_DIR$/views/login.ejs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/views/partials/header.ejs" beforeDir="false" afterPath="$PROJECT_DIR$/views/partials/header.ejs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/views/passenger-info.ejs" beforeDir="false" afterPath="$PROJECT_DIR$/views/passenger-info.ejs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/views/register.ejs" beforeDir="false" afterPath="$PROJECT_DIR$/views/register.ejs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/views/search-flight.ejs" beforeDir="false" afterPath="$PROJECT_DIR$/views/search-flight.ejs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/views/search-seat.ejs" beforeDir="false" afterPath="$PROJECT_DIR$/views/search-seat.ejs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/views/view-booking.ejs" beforeDir="false" afterPath="$PROJECT_DIR$/views/view-booking.ejs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/views/view-profile.ejs" beforeDir="false" afterPath="$PROJECT_DIR$/views/view-profile.ejs" afterDir="false" />
+    </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -79,6 +98,7 @@
       <workItem from="1606535159621" duration="47145000" />
       <workItem from="1606861273536" duration="1355000" />
       <workItem from="1607005100034" duration="17135000" />
+      <workItem from="1607270965277" duration="6539000" />
     </task>
     <servers />
   </component>

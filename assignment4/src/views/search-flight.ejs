@@ -22,6 +22,7 @@
 
 <!--get query results of suitable flights  -->
 <div class="table-wrapper">
+<!--    check if there are any available flights-->
     <% if (flights.length > 0) {%>
         <table class="table table-hovered">
             <thead class="thead-dark">
@@ -40,6 +41,7 @@
             </tr>
             </thead>
             <tbody>
+<!--            loop through and show all flights-->
             <% flights.forEach((flight, index) => { %>
                 <tr>
                     <td style="text-align: center; vertical-align: middle;"><%= flight.airlineName %></td>
@@ -52,9 +54,9 @@
                     <td style="text-align: center; vertical-align: middle;"><%= flight.arrivalTime %></td>
                     <td style="text-align: center; vertical-align: middle;"><%= flight.seatsAvailable %></td>
                     <td style="text-align: center; vertical-align: middle;"><%= flight.seatPrice %></td>
-                    <td>
+                    <td style="text-align: center; vertical-align: middle;">
                         <a href="/flight/<%= flight.flightNo %>"
-                           target="_blank" rel="noopener" class="btn btn-sm btn-success">Book</a>
+                           class="btn btn-sm btn-success">Book</a>
                     </td>
                 </tr>
             <% }) %>

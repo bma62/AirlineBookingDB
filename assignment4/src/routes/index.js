@@ -1,4 +1,6 @@
+//routes for basic pages and functions
 module.exports = {
+  //render home page and pass in the session user
   getHomePage: (req, res) => {
     res.render('index.ejs', {name: req.session.user})
   },
@@ -12,9 +14,10 @@ module.exports = {
   },
 
   register: (req, res) => {
-    //make SQL query with username and password
+    //make SQL query with username and password to insert into database
     let query = "INSERT INTO Client (username,password) VALUES ('" +
         req.body.username + "', '" + req.body.password + "')";
+
     //send query to database
     db.query
     (query, (err, result) =>
@@ -28,29 +31,30 @@ module.exports = {
 
   login: (req, res) =>
   {
-    //get parameters
+    //get form inputs
     let username = req.body.username;
     let password = req.body.password;
 
-    //make SQL query
+    //make SQL query to test if the user exists and password matches with database record
     let query = "SELECT * FROM Client WHERE username = '"+ username +"' " ;
     db.query(query, (err, result) =>
     {
       if (err) return res.status(500).send(err);
 
-      //if result is not null = username exists
+      //if result is not empty, then username exists
       if (result.length > 0)
       {
-        //if password matches, success
+        //check if password matches for the username
         if (password === result[0].password)
         {
+          //set the session user and redirect to homepage
           req.session.user = username;
           res.redirect('/');
         }
         else
           return res.status(500).send('Incorrect password');
       }
-      //username not in db
+      //otherwise, username not in db
       else
       {
         return res.status(500).send('Username does not exist');

@@ -1,8 +1,11 @@
+// route to render view profile page
 module.exports = {
   viewProfilePage: (req, res) =>
   {
     //get username
     let username = req.session.user;
+
+    //query for the user's points from the db
     let query = "SELECT points FROM Client WHERE username='"+username+"'";
     db.query
     (query, (err, result) =>
