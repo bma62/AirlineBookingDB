@@ -55,7 +55,7 @@
                     <td style="text-align: center; vertical-align: middle;"><%= flight.seatsAvailable %></td>
                     <td style="text-align: center; vertical-align: middle;"><%= flight.seatPrice %></td>
                     <td style="text-align: center; vertical-align: middle;">
-                        <a href="/flight/<%= flight.flightNo %>"
+                        <a href="/flight/<%= flight.flightNo %>&<%= flight.departureDate.toISOString().split('T')[0] %>"
                            class="btn btn-sm btn-success">Book</a>
                     </td>
                 </tr>

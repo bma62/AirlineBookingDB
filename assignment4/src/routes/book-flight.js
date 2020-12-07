@@ -138,6 +138,7 @@ module.exports = {
     searchSeatPage: (req, res) => {
         //get available seats on the chosen flight
         flightNo = req.params.flightNo;
+        travelDate = req.params.travelDate;
         let query =
             "SELECT a.airlineName, s.flightNo, s.departureDate, fs.departureTime, s.seatNo, s.seatStatus, fs.seatPrice " +
             "FROM Seat s, FlightSchedule fs, Airline a " +

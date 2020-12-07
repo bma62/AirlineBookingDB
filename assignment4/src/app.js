@@ -79,7 +79,7 @@ app.get('/arrival', checkSignIn, bookArrivalPage);
 app.get('/date', checkSignIn, bookDatePage);
 app.get('/deal', checkSignIn, findDealPage);
 app.get('/search', checkSignIn, searchFlightPage);
-app.get('/flight/:flightNo', checkSignIn, searchSeatPage); // need to pass flightNo as parameter
+app.get('/flight/:flightNo&:travelDate', checkSignIn, searchSeatPage); // need to pass flightNo as parameter
 app.get('/passenger/:seatNo&:seatPrice', checkSignIn, passengerInfoPage); // pass seatNo and seatPrice as parameters
 app.get('/cancel/:confirmationNo', checkSignIn, cancelBooking); //pass confirmationNo as parameter
 
