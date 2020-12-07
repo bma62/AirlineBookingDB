@@ -17,14 +17,15 @@
 
     <div>
         <label for="arrival">Arrival</label>
-        <!--        a dropdown list containing arrival airports-->
-        <select id = id="arrival" name="arrival" required>
+        <!--        a data list element containing arrival airports-->
+        <input type="text" id="arrival" name="arrival" list="arrivalList" required>
+        <datalist id="arrivalList">
             <% for (var i=0; i<arrivalAirports.length; i++) { %>
             <option><%=arrivalAirports[i].airportIATA + ", " +
                 arrivalAirports[i].city + ", " +
                 arrivalAirports[i].country%></option>
             <% } %>
-        </select>
+        </datalist>
     </div>
 
 <!--    display top 5 destination from the departure city-->
