@@ -18,6 +18,10 @@
                 <th style="text-align: center; vertical-align: middle;" scope="col">Confirmation No</th>
                 <th style="text-align: center; vertical-align: middle;" scope="col">Booking Status</th>
                 <th style="text-align: center; vertical-align: middle;" scope="col">Number of Tickets</th>
+                <th style="text-align: center; vertical-align: middle;" scope="col">Departure Date</th>
+                <th style="text-align: center; vertical-align: middle;" scope="col">Flight No</th>
+                <th style="text-align: center; vertical-align: middle;" scope="col">Seat No</th>
+                <th style="text-align: center; vertical-align: middle;" scope="col">Travel Document</th>
                 <th style="text-align: center; vertical-align: middle;" scope="col">Points Earned</th>
                 <th style="text-align: center; vertical-align: middle;" scope="col">Transaction Date</th>
                 <th style="text-align: center; vertical-align: middle;" scope="col">Transaction Amount</th>
@@ -31,8 +35,13 @@
                     <td style="text-align: center; vertical-align: middle;"><%= booking.confirmationNo %></td>
                     <td style="text-align: center; vertical-align: middle;"><%= booking.bookingStatus %></td>
                     <td style="text-align: center; vertical-align: middle;"><%= booking.numSeatsBooked %></td>
+                    <!--                    convert date to YYYY-MM-DD format-->
+                    <td style="text-align: center; vertical-align: middle;">
+                        <%= booking.departureDate.toISOString().split('T')[0] %></td>
+                    <td style="text-align: center; vertical-align: middle;"><%= booking.flightNo %></td>
+                    <td style="text-align: center; vertical-align: middle;"><%= booking.seatNo %></td>
+                    <td style="text-align: center; vertical-align: middle;"><%= booking.travelDocument %></td>
                     <td style="text-align: center; vertical-align: middle;"><%= booking.numPointsEarned %></td>
-<!--                    convert date to YYYY-MM-DD format-->
                     <td style="text-align: center; vertical-align: middle;">
                         <%= booking.transactionDate.toISOString().split('T')[0] %></td>
                     <td style="text-align: center; vertical-align: middle;"><%= booking.transactionAmount %></td>

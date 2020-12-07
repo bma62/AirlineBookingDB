@@ -6,7 +6,11 @@ module.exports = {
         let username = req.session.user;
 
         //query the database for this user's all bookings
-        let query = "SELECT * FROM Booking WHERE username='"+username+"'";
+        let query =
+            "SELECT b.*, t.* " +
+            "FROM Booking b, Ticket t " +
+            "WHERE b.username='"+username+"' " +
+                "AND b.confirmationNo = t.confirmationNo;";
         db.query
         (query, (err, result) =>
             {
