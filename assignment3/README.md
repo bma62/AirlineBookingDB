@@ -1,1 +1,1 @@
-This is our assignment 3 part. 
+This folder contains the data generator written in Python and data used for demenstration
